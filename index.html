@@ -1237,29 +1237,7 @@
             let currentIndex = 0;
             const slideWidth = 100; // 100%
             
-            function updateSlider() {
-                if (testimonialSlider) {
-                    testimonialSlider.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
-                    
-                    // Update active testimonial
-                    testimonials.forEach((testimonial, index) => {
-                        if (index === currentIndex) {
-                            testimonial.classList.add('active');
-                        } else {
-                            testimonial.classList.remove('active');
-                        }
-                    });
-                    
-                    // Update active dot
-                    dots.forEach((dot, index) => {
-                        if (index === currentIndex) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
-                        }
-                    });
-                }
-            }
+            
             
             if (prevBtn) {
                 prevBtn.addEventListener('click', function() {
@@ -1283,26 +1261,26 @@
             });
             
             // Auto-slide for testimonials
-            let testimonialInterval = setInterval(function() {
-                if (testimonialSlider) {
-                    currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
-                    updateSlider();
-                }
-            }, 8000);
+            // let testimonialInterval = setInterval(function() {
+            //     if (testimonialSlider) {
+            //         currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
+            //         updateSlider();
+            //     }
+            // }, 8000);
             
             // Pause auto-slide when hovering over testimonials
-            if (testimonialSlider) {
-                testimonialSlider.addEventListener('mouseenter', function() {
-                    clearInterval(testimonialInterval);
-                });
+            // if (testimonialSlider) {
+            //     testimonialSlider.addEventListener('mouseenter', function() {
+            //         clearInterval(testimonialInterval);
+            //     });
                 
-                testimonialSlider.addEventListener('mouseleave', function() {
-                    testimonialInterval = setInterval(function() {
-                        currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
-                        updateSlider();
-                    }, 8000);
-                });
-            }
+            //     testimonialSlider.addEventListener('mouseleave', function() {
+            //         testimonialInterval = setInterval(function() {
+            //             currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
+            //             updateSlider();
+            //         }, 8000);
+            //     });
+            // }
             
             // Scroll to top button
             const scrollToTopBtn = document.getElementById('scroll-to-top');
