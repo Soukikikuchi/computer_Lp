@@ -623,6 +623,98 @@
                 margin-right: 20px;
             }
         }
+
+        .pc-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .pc-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pc-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pc-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .pc-card:hover .pc-image img {
+            transform: scale(1.05);
+        }
+
+        .pc-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pc-details {
+            padding: 25px;
+        }
+
+        .pc-details h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .pc-description {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            min-height: 70px;
+        }
+
+        .pc-specs {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .pc-specs span {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .pc-specs span i {
+            color: var(--secondary-color);
+            margin-right: 5px;
+        }
+
+        .pc-price {
+            font-size: 1.1rem;
+            text-align: right;
+            color: #6c757d;
+        }
+
+        .price-from {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -770,6 +862,89 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- おすすめPC -->
+    <section id="recommended-pc" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up" data-aos-delay="100">おすすめPC</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    用途に合わせた最適なパソコンを豊富に取り揃えています。<br>すべての機種は整備済みで、安心してご利用いただけます。
+                </p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="pc-card" data-aos="fade-up">
+                        <div class="pc-image">
+                            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="ビジネスノートPC" class="img-fluid">
+                            <div class="pc-badge">人気</div>
+                        </div>
+                        <div class="pc-details">
+                            <h3>ビジネスノートPC</h3>
+                            <p class="pc-description">軽量で持ち運びに便利。長時間バッテリーでどこでも作業可能なビジネス向けノートPCです。</p>
+                            <div class="pc-specs">
+                                <span><i class="fas fa-microchip"></i> Core i5</span>
+                                <span><i class="fas fa-memory"></i> 8GB</span>
+                                <span><i class="fas fa-hdd"></i> SSD 256GB</span>
+                            </div>
+                            <div class="pc-price">
+                                <span class="price-from">¥3,980</span>/月〜
+                            </div>
+                            <a href="#contact" class="btn btn-primary w-100 mt-3">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="pc-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pc-image">
+                            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="ハイスペックデスクトップ" class="img-fluid">
+                        </div>
+                        <div class="pc-details">
+                            <h3>ハイスペックデスクトップ</h3>
+                            <p class="pc-description">高負荷作業にも対応する高性能デスクトップPC。グラフィックデザインや動画編集にも最適です。</p>
+                            <div class="pc-specs">
+                                <span><i class="fas fa-microchip"></i> Core i7</span>
+                                <span><i class="fas fa-memory"></i> 16GB</span>
+                                <span><i class="fas fa-hdd"></i> SSD 512GB</span>
+                            </div>
+                            <div class="pc-price">
+                                <span class="price-from">¥5,980</span>/月〜
+                            </div>
+                            <a href="#contact" class="btn btn-primary w-100 mt-3">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="pc-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pc-image">
+                            <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="2in1タブレットPC" class="img-fluid">
+                            <div class="pc-badge">新着</div>
+                        </div>
+                        <div class="pc-details">
+                            <h3>2in1タブレットPC</h3>
+                            <p class="pc-description">タブレットとノートPCの2WAYで使用可能。タッチ操作対応で直感的な操作が可能です。</p>
+                            <div class="pc-specs">
+                                <span><i class="fas fa-microchip"></i> Core i3</span>
+                                <span><i class="fas fa-memory"></i> 8GB</span>
+                                <span><i class="fas fa-hdd"></i> SSD 128GB</span>
+                            </div>
+                            <div class="pc-price">
+                                <span class="price-from">¥4,580</span>/月〜
+                            </div>
+                            <a href="#contact" class="btn btn-primary w-100 mt-3">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up">
+                <a href="#" class="btn btn-outline-primary btn-lg">すべてのPCを見る <i class="fas fa-arrow-right ms-2"></i></a>
             </div>
         </div>
     </section>
