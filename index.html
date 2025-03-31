@@ -7,31 +7,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
+            --primary-color: #1a3c6e;
+            --secondary-color: #1e88e5;
+            --accent-color: #e53935;
             --text-color: #333;
-            --light-bg: #f8f9fa;
-            --dark-bg: #2c3e50;
+            --light-color: #f8f9fa;
         }
         
         body {
             font-family: 'Noto Sans JP', sans-serif;
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
             transition: all 0.3s ease;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: transparent;
         }
         
         .navbar.scrolled {
-            padding: 8px 0;
+            background-color: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            margin: 0 10px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color);
         }
         
         .logo {
@@ -39,36 +82,58 @@
         }
         
         .hero {
-            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+            background: linear-gradient(135deg, rgba(26, 60, 110, 0.9), rgba(30, 136, 229, 0.8)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
             background-size: cover;
             height: 100vh;
             display: flex;
             align-items: center;
             color: white;
             position: relative;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyODAgMEw2NDAgOTAgMCAwdjE0MGgxMjgweiIvPjwvZz48L3N2Zz4=');
+            background-size: 100% 100px;
+            background-repeat: no-repeat;
+            background-position: bottom;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         
         .hero-badge {
             background-color: var(--accent-color);
             color: white;
             border-radius: 30px;
-            padding: 5px 15px;
+            padding: 8px 20px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             transform: translateY(20px);
             opacity: 0;
             animation: fade-in-up 0.6s forwards;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 3.8rem;
+            font-weight: 900;
+            margin-bottom: 25px;
             line-height: 1.2;
             transform: translateY(20px);
             opacity: 0;
             animation: fade-in-up 0.6s 0.2s forwards;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .hero p {
@@ -85,9 +150,40 @@
             opacity: 0;
             animation: fade-in-up 0.6s 0.6s forwards;
         }
+
+        .hero-image {
+            position: relative;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fade-in-up 0.8s 0.4s forwards;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: all 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, 0px); }
+        }
         
         .section {
             padding: 100px 0;
+            position: relative;
         }
         
         .section-title {
@@ -233,96 +329,289 @@
         }
         
         .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSIzNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMzUwaDI4ODBWMGwtOTYwIDE4MEwwIDB2MzUweiIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjwvc3ZnPg==');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            z-index: 0;
+        }
+        
+        .cta-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-content .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+        }
+        
+        .contact-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+        }
+        
+        .contact-card h3 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        
+        .form-control, .form-select {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(30, 136, 229, 0.25);
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary-color);
+            border-color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 12px 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-light:hover {
             background-color: var(--primary-color);
             color: white;
-            text-align: center;
-            padding: 80px 0;
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .footer {
-            background-color: #1a252f;
+            background-color: #1a232e;
             color: white;
-            padding: 50px 0;
+            padding: 80px 0 20px;
+            position: relative;
+        }
+        
+        .footer-brand h3 {
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 300px;
+        }
+        
+        .social-icons {
+            display: flex;
         }
         
         .social-icon {
-            color: white;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            transition: color 0.3s ease;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            margin-right: 20px;
+            transition: all 0.3s ease;
         }
         
         .social-icon:hover {
             color: var(--secondary-color);
-        }
-        
-        @keyframes fade-in-up {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .btn-outline-light {
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-light:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .badge-primary {
-            background-color: var(--secondary-color);
-        }
-        
-        .counter {
-            font-size: 3rem;
+        .footer-title {
             font-weight: 700;
-            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
             margin-bottom: 10px;
         }
         
-        .counter-text {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
         }
         
-        .counter-container {
+        .footer-links a::before {
+            content: '\f054';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 20px;
+        }
+        
+        .footer-links a:hover::before {
+            left: 5px;
+        }
+        
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-contact li {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact li i {
+            color: var(--secondary-color);
+            margin-top: 5px;
+            width: 20px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-right: 10px;
         }
         
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        .footer-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+            margin: 40px 0 20px;
+        }
+        
+        .footer-bottom {
+            padding: 20px 0;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+        
+        #scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+        
+        #scroll-to-top.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #scroll-to-top:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        @media (max-width: 767px) {
+            .footer-bottom-links {
+                justify-content: flex-start;
+                margin-top: 15px;
             }
             
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section {
-                padding: 60px 0;
+            .footer-bottom-links a {
+                margin-left: 0;
+                margin-right: 20px;
             }
         }
     </style>
@@ -332,7 +621,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <span style="font-weight: 700; color: var(--primary-color);">株式会社HAKU</span>
+                <span style="font-weight: 900; color: var(--primary-color); letter-spacing: -0.5px;">株式会社<span style="color: var(--secondary-color);">HAKU</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -362,14 +651,21 @@
     <!-- ヒーローセクション -->
     <section class="hero">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="hero-badge">創業17年の実績</div>
-                    <h1>パソコンのプロによる<br>業界最安値のレンタルサービス</h1>
-                    <p>株式会社HAKUは、創業17年・8,000社以上の実績を持つパソコン回収・処分のプロフェッショナル。その経験とノウハウを活かした安心・安全なパソコンレンタルサービスをご提供します。</p>
-                    <div class="hero-buttons">
-                        <a href="#pricing" class="btn btn-primary me-3">料金プランを見る</a>
-                        <a href="#contact" class="btn btn-outline-light">お問い合わせ</a>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <div class="hero-badge"><i class="fas fa-award me-2"></i>創業17年の実績</div>
+                        <h1>パソコンのプロによる<br><span style="color: #fff700;">業界最安値</span>の<br>レンタルサービス</h1>
+                        <p>株式会社HAKUは、創業17年・8,000社以上の実績を持つパソコン回収・処分のプロフェッショナル。その経験とノウハウを活かした安心・安全なパソコンレンタルサービスをご提供します。</p>
+                        <div class="hero-buttons">
+                            <a href="#pricing" class="btn btn-primary me-3"><i class="fas fa-list-ul me-2"></i>料金プランを見る</a>
+                            <a href="#contact" class="btn btn-outline-light"><i class="fas fa-paper-plane me-2"></i>お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="hero-image floating">
+                        <img src="https://images.unsplash.com/photo-1515343480029-43cdfe6b6aae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="ノートパソコン" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -380,50 +676,89 @@
     <section id="features" class="section">
         <div class="container">
             <div class="section-title">
-                <h2>サービスの特徴</h2>
+                <span class="subtitle" data-aos="fade-up">ハクのサービス</span>
+                <h2 data-aos="fade-up" data-aos-delay="100">サービスの特徴</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    創業17年の実績を活かした、高品質かつリーズナブルなパソコンレンタルサービスをご提供します。
+                </p>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="feature-box" data-aos="fade-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-laptop"></i>
+                        <div class="feature-icon-wrapper">
+                            <div class="feature-icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
                         </div>
                         <h3>パソコンのプロが手がける</h3>
                         <p>創業17年の実績と8,000社以上の企業のパソコン回収・処分経験を持つプロフェッショナルが、豊富な知識とノウハウを活かしたレンタルサービスを提供します。</p>
+                        <a href="#" class="feature-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon">
-                            <i class="fas fa-tags"></i>
+                        <div class="feature-icon-wrapper accent">
+                            <div class="feature-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
                         </div>
                         <h3>業界最安値の価格</h3>
                         <p>既存のパソコン回収・処分事業により仕入れコストが不要なため、他社よりも安価な価格設定を実現しています。コストパフォーマンスに優れたサービスをご利用いただけます。</p>
+                        <a href="#" class="feature-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
+                        <div class="feature-icon-wrapper primary">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
                         </div>
                         <h3>安心・安全のセキュリティ</h3>
                         <p>データ削除の専門企業としての実績があり、使用後のパソコンも安心して返却可能です。有料オプションでデータ削除証明書も発行できます。</p>
+                        <a href="#" class="feature-link">詳しく見る <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
 
             <!-- 実績データ -->
-            <div class="row mt-5">
-                <div class="col-md-6 mb-4">
-                    <div class="counter-container" data-aos="fade-up">
-                        <div class="counter" data-target="17">0</div>
-                        <p class="counter-text">創業年数</p>
+            <div class="counter-section" data-aos="fade-up">
+                <div class="row mt-5 counter-row">
+                    <div class="col-md-3 mb-4">
+                        <div class="counter-container" data-aos="zoom-in" data-aos-delay="0">
+                            <div class="counter-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div class="counter" data-target="17">0</div>
+                            <p class="counter-text">創業年数</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="counter-container" data-aos="fade-up" data-aos-delay="100">
-                        <div class="counter" data-target="8000">0</div>
-                        <p class="counter-text">取引企業数</p>
+                    <div class="col-md-3 mb-4">
+                        <div class="counter-container" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="counter-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="counter" data-target="8000">0</div>
+                            <p class="counter-text">取引企業数</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="counter-container" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="counter-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="counter" data-target="10000">0</div>
+                            <p class="counter-text">レンタル実績</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="counter-container" data-aos="zoom-in" data-aos-delay="600">
+                            <div class="counter-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="counter" data-target="99">0</div>
+                            <p class="counter-text">顧客満足度(%)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -431,55 +766,92 @@
     </section>
 
     <!-- 料金プラン -->
-    <section id="pricing" class="section bg-light">
+    <section id="pricing" class="section bg-light pricing-section">
         <div class="container">
             <div class="section-title">
-                <h2>料金プラン</h2>
+                <span class="subtitle" data-aos="fade-up">リーズナブルな価格</span>
+                <h2 data-aos="fade-up" data-aos-delay="100">料金プラン</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    お客様のニーズに合わせた最適なプランをご用意しています。<br>すべてのプランに初期設定・サポートが含まれています。
+                </p>
             </div>
-            <div class="row">
+            <div class="price-switch-container" data-aos="fade-up" data-aos-delay="300">
+                <span class="price-period">月額</span>
+                <label class="switch">
+                    <input type="checkbox" id="price-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="price-period">年額<span class="discount-badge">20%OFF</span></span>
+            </div>
+            <div class="row mt-5">
                 <div class="col-lg-4 mb-4">
-                    <div class="pricing-table" data-aos="fade-up">
+                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="100">
+                        <div class="popular-badge">人気</div>
                         <div class="pricing-header">
                             <h3>個人向けプラン</h3>
-                            <div class="pricing-price">¥3,980<small>/月〜</small></div>
+                            <div class="pricing-price">
+                                <span class="currency">¥</span>
+                                <span class="price-value monthly">3,980</span>
+                                <span class="price-value annually">3,184</span>
+                                <span class="price-period">/月〜</span>
+                            </div>
+                            <p class="pricing-sub">短期レンタルにも対応</p>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check-circle text-success me-2"></i>短期レンタル対応</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>短期レンタル対応(1ヶ月〜)</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>初期設定無料</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>24時間サポート</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>基本ソフトウェア導入済み</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>宅配による受け渡し可能</li>
                         </ul>
-                        <a href="individual.html" class="pricing-button">詳細を見る</a>
+                        <div class="pricing-footer">
+                            <a href="individual.html" class="pricing-button">詳細を見る</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="100">
-                        <div class="pricing-header" style="background-color: var(--secondary-color);">
+                    <div class="pricing-table featured" data-aos="fade-up">
+                        <div class="pricing-header">
                             <h3>法人向けプラン</h3>
-                            <div class="pricing-price">¥2,980<small>/月〜</small></div>
+                            <div class="pricing-price">
+                                <span class="currency">¥</span>
+                                <span class="price-value monthly">2,980</span>
+                                <span class="price-value annually">2,384</span>
+                                <span class="price-period">/月〜</span>
+                            </div>
+                            <p class="pricing-sub">10台以上のご契約で割引適用</p>
                         </div>
                         <ul class="pricing-features">
                             <li><i class="fas fa-check-circle text-success me-2"></i>長期レンタル割引</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>量産割引対応</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>ビジネスソフト導入</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>専任担当者によるサポート</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>オンサイトサポート(別途料金)</li>
                         </ul>
-                        <a href="business.html" class="pricing-button">詳細を見る</a>
+                        <div class="pricing-footer">
+                            <a href="business.html" class="pricing-button">詳細を見る</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="100">
                         <div class="pricing-header">
                             <h3>カスタムプラン</h3>
-                            <div class="pricing-price">お問い合わせ</div>
+                            <div class="pricing-price">
+                                <span class="price-value">お問い合わせ</span>
+                            </div>
+                            <p class="pricing-sub">ご要望に応じたカスタム対応</p>
                         </div>
                         <ul class="pricing-features">
                             <li><i class="fas fa-check-circle text-success me-2"></i>特殊用途対応</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>オーダーメイド構成</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>特別サポート</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>最短納期対応</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>ハードウェア・ソフトウェアのカスタマイズ</li>
                         </ul>
-                        <a href="custom.html" class="pricing-button">詳細を見る</a>
+                        <div class="pricing-footer">
+                            <a href="custom.html" class="pricing-button">お問い合わせ</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,59 +859,198 @@
     </section>
 
     <!-- セキュリティ -->
-    <section id="security" class="section">
+    <section id="security" class="section security-section">
         <div class="container">
             <div class="section-title">
-                <h2>安心のデータ管理</h2>
+                <span class="subtitle" data-aos="fade-up">信頼のサービス</span>
+                <h2 data-aos="fade-up" data-aos-delay="100">安心のデータ管理</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    株式会社HAKUはデータ削除・ハードディスク破壊の専門企業です。<br>レンタル後も安心のセキュリティ対策をご提供します。
+                </p>
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4" data-aos="fade-right">
-                    <div class="text-center">
-                        <div class="security-icon">
-                            <i class="fas fa-lock"></i>
+                    <div class="security-image-container">
+                        <div class="security-image">
+                            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="データセキュリティ" class="img-fluid rounded-lg">
+                            <div class="security-icon-large">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
                         </div>
+                        <div class="circle-decoration"></div>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <h3>データ削除の専門企業だからできる安心サービス</h3>
-                    <p>株式会社HAKUはデータ削除・ハードディスク破壊の専門企業です。パソコンレンタル後も安心してご返却いただけます。</p>
-                    <ul class="list-unstyled">
-                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>国際基準に準拠したデータ消去</li>
-                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>返却後の徹底した情報管理</li>
-                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>有料オプションでデータ削除証明書発行</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-primary mt-3">詳細はお問い合わせ</a>
+                    <div class="security-content">
+                        <h3>データ削除の専門企業だからできる<br><span class="text-gradient">安心サービス</span></h3>
+                        <p class="mb-4">株式会社HAKUはデータ削除・ハードディスク破壊の専門企業です。パソコンレンタル後も安心してご返却いただけます。</p>
+                        <div class="security-features">
+                            <div class="security-feature" data-aos="fade-up" data-aos-delay="100">
+                                <div class="security-feature-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="security-feature-text">
+                                    <h4>国際基準に準拠したデータ消去</h4>
+                                    <p>アメリカ国防総省基準（DoD 5220.22-M）に準拠した安全なデータ消去を実施します。</p>
+                                </div>
+                            </div>
+                            <div class="security-feature" data-aos="fade-up" data-aos-delay="200">
+                                <div class="security-feature-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="security-feature-text">
+                                    <h4>返却後の徹底した情報管理</h4>
+                                    <p>返却後のパソコンはセキュリティが確保された環境で保管・処理します。</p>
+                                </div>
+                            </div>
+                            <div class="security-feature" data-aos="fade-up" data-aos-delay="300">
+                                <div class="security-feature-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="security-feature-text">
+                                    <h4>データ削除証明書発行サービス</h4>
+                                    <p>有料オプションで、国際基準に準拠したデータ削除証明書を発行します。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#contact" class="btn btn-primary mt-4">詳細はお問い合わせ <i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- お客様の声 -->
-    <section id="testimonials" class="section bg-light">
+    <section id="testimonials" class="section bg-light testimonials-section">
         <div class="container">
             <div class="section-title">
-                <h2>お客様の声</h2>
+                <span class="subtitle" data-aos="fade-up">お客様の声</span>
+                <h2 data-aos="fade-up" data-aos-delay="100">導入事例</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">
+                    多くのお客様に選ばれ、ご満足いただいています。<br>お客様のビジネス成功をサポートします。
+                </p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial" data-aos="fade-up">
-                        <p>"短期イベント用に10台のパソコンをレンタルしましたが、価格も他社より安く、対応も迅速で大変満足しています。次回もぜひ利用したいと思います。"</p>
-                        <div class="customer-name">田中 健太</div>
-                        <div class="customer-position">イベント企画会社 部長</div>
+            
+            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-slider-track">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"短期イベント用に10台のパソコンをレンタルしましたが、価格も他社より安く、対応も迅速で大変満足しています。次回もぜひ利用したいと思います。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="田中 健太">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="customer-name">田中 健太</div>
+                                <div class="customer-position">イベント企画会社 部長</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"社員50名分のノートPCを長期レンタルしています。法人向けの割引プランが適用され、コスト削減に大きく貢献しました。サポートも手厚く安心です。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="佐藤 美咲">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="customer-name">佐藤 美咲</div>
+                                <div class="customer-position">IT企業 総務部</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"急なプロジェクト開始で高スペックPCが必要になり、カスタムプランで対応いただきました。業務に支障なく進めることができ、大変助かりました。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="鈴木 雄太">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="customer-name">鈴木 雄太</div>
+                                <div class="customer-position">デザイン会社 代表</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"ノートパソコン20台を学校の授業用に3ヶ月間レンタルしました。初期設定済みで納品していただき、教員も簡単に使用できました。レンタル期間終了後のデータ削除も安心でした。"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="山田 直子">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="customer-name">山田 直子</div>
+                                <div class="customer-position">私立高校 教頭</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
-                        <p>"社員50名分のノートPCを長期レンタルしています。法人向けの割引プランが適用され、コスト削減に大きく貢献しました。サポートも手厚く安心です。"</p>
-                        <div class="customer-name">佐藤 美咲</div>
-                        <div class="customer-position">IT企業 総務部</div>
+                
+                <div class="testimonial-controls">
+                    <button class="testimonial-prev"><i class="fas fa-chevron-left"></i></button>
+                    <div class="testimonial-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
+                    <button class="testimonial-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
-                        <p>"急なプロジェクト開始で高スペックPCが必要になり、カスタムプランで対応いただきました。業務に支障なく進めることができ、大変助かりました。"</p>
-                        <div class="customer-name">鈴木 雄太</div>
-                        <div class="customer-position">デザイン会社 代表</div>
+            </div>
+            
+            <div class="testimonial-brands" data-aos="fade-up">
+                <div class="brands-title">信頼のパートナー</div>
+                <div class="brands-container">
+                    <div class="brand-logo">
+                        <img src="https://via.placeholder.com/120x50?text=企業ロゴ1" alt="企業ロゴ">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://via.placeholder.com/120x50?text=企業ロゴ2" alt="企業ロゴ">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://via.placeholder.com/120x50?text=企業ロゴ3" alt="企業ロゴ">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://via.placeholder.com/120x50?text=企業ロゴ4" alt="企業ロゴ">
+                    </div>
+                    <div class="brand-logo">
+                        <img src="https://via.placeholder.com/120x50?text=企業ロゴ5" alt="企業ロゴ">
                     </div>
                 </div>
             </div>
@@ -549,15 +1060,53 @@
     <!-- CTA -->
     <section id="contact" class="cta-section">
         <div class="container">
-            <h2 class="mb-4" data-aos="fade-up">お問い合わせ・お申し込み</h2>
-            <p class="mb-4" data-aos="fade-up" data-aos-delay="100">お見積り・ご相談は無料です。お気軽にお問い合わせください。</p>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <a href="tel:0120-XXX-XXX" class="btn btn-light btn-lg me-3 mb-3">
-                    <i class="fas fa-phone me-2"></i>0120-XXX-XXX
-                </a>
-                <a href="mailto:info@haku-rental.jp" class="btn btn-outline-light btn-lg mb-3">
-                    <i class="fas fa-envelope me-2"></i>メールでのお問い合わせ
-                </a>
+            <div class="cta-container" data-aos="fade-up">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-4 mb-lg-0">
+                        <div class="cta-content">
+                            <span class="subtitle">お気軽にご相談ください</span>
+                            <h2 class="mb-4">お問い合わせ・お見積り</h2>
+                            <p class="mb-4">お見積り・ご相談は無料です。パソコンレンタルサービスに関するご質問や、お見積りのご依頼など、お気軽にお問い合わせください。</p>
+                            <div class="cta-buttons">
+                                <a href="tel:0120-XXX-XXX" class="btn btn-light btn-lg me-3 mb-3">
+                                    <i class="fas fa-phone me-2"></i>0120-XXX-XXX
+                                </a>
+                                <a href="mailto:info@haku-rental.jp" class="btn btn-outline-light btn-lg mb-3">
+                                    <i class="fas fa-envelope me-2"></i>メールでのお問い合わせ
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="contact-card">
+                            <h3>お問い合わせフォーム</h3>
+                            <form id="contact-form">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="お名前" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="メールアドレス" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="tel" class="form-control" placeholder="電話番号">
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select">
+                                        <option selected disabled>お問い合わせ内容</option>
+                                        <option>パソコンレンタルについて</option>
+                                        <option>料金プランについて</option>
+                                        <option>セキュリティ対策について</option>
+                                        <option>その他のお問い合わせ</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="3" placeholder="お問い合わせ詳細"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">送信する</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -565,39 +1114,68 @@
     <!-- フッター -->
     <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h4>株式会社HAKU</h4>
-                    <p>パソコンのプロフェッショナルによる安心・安全のレンタルサービス</p>
-                    <div class="mt-3">
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <div class="footer-top">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="footer-brand">
+                            <h3>株式会社<span>HAKU</span></h3>
+                            <p>パソコンのプロフェッショナルによる安心・安全のレンタルサービス</p>
+                            <div class="mt-3 social-icons">
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                        <h4 class="footer-title">サービス</h4>
+                        <ul class="footer-links">
+                            <li><a href="individual.html">個人向けプラン</a></li>
+                            <li><a href="business.html">法人向けプラン</a></li>
+                            <li><a href="custom.html">カスタムプラン</a></li>
+                            <li><a href="#">データ削除サービス</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                        <h4 class="footer-title">会社情報</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">会社概要</a></li>
+                            <li><a href="#">プライバシーポリシー</a></li>
+                            <li><a href="#">利用規約</a></li>
+                            <li><a href="#">採用情報</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h4 class="footer-title">お問い合わせ</h4>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-map-marker-alt me-2"></i>〒XXX-XXXX 東京都XX区XXX</li>
+                            <li><i class="fas fa-phone me-2"></i>0120-XXX-XXX</li>
+                            <li><i class="fas fa-envelope me-2"></i>info@haku-rental.jp</li>
+                            <li><i class="fas fa-clock me-2"></i>営業時間: 平日 9:00-18:00</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h4>サービス</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="individual.html" class="text-white">個人向けプラン</a></li>
-                        <li><a href="business.html" class="text-white">法人向けプラン</a></li>
-                        <li><a href="custom.html" class="text-white">カスタムプラン</a></li>
-                        <li><a href="#" class="text-white">データ削除サービス</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h4>お問い合わせ</h4>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>〒XXX-XXXX 東京都XX区XXX</li>
-                        <li><i class="fas fa-phone me-2"></i>0120-XXX-XXX</li>
-                        <li><i class="fas fa-envelope me-2"></i>info@haku-rental.jp</li>
-                    </ul>
-                </div>
             </div>
-            <hr class="mt-4 mb-4" style="background-color: rgba(255,255,255,0.1);">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2023 株式会社HAKU. All rights reserved.</p>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2023 株式会社HAKU. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="footer-bottom-links">
+                            <a href="#">プライバシーポリシー</a>
+                            <a href="#">利用規約</a>
+                            <a href="#">特定商取引法に基づく表記</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <button id="scroll-to-top" aria-label="トップに戻る">
+            <i class="fas fa-arrow-up"></i>
+        </button>
     </footer>
 
     <!-- Scripts -->
@@ -605,16 +1183,17 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS
+            // Initialize AOS animations
             AOS.init({
                 duration: 800,
                 easing: 'ease-in-out',
-                once: true
+                once: true,
+                mirror: false
             });
             
             // Navbar scroll effect
+            const navbar = document.querySelector('.navbar');
             window.addEventListener('scroll', function() {
-                const navbar = document.querySelector('.navbar');
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
@@ -622,32 +1201,190 @@
                 }
             });
             
-            // Counter animation
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const duration = 2000; // in milliseconds
-                const increment = target / (duration / 16); // 60fps
+            // Price toggle functionality
+            const toggle = document.getElementById('price-toggle');
+            const monthlyPrices = document.querySelectorAll('.price-value.monthly');
+            const annualPrices = document.querySelectorAll('.price-value.annually');
+            
+            if (toggle) {
+                toggle.addEventListener('change', function() {
+                    if (this.checked) {
+                        monthlyPrices.forEach(price => price.style.display = 'none');
+                        annualPrices.forEach(price => price.style.display = 'block');
+                    } else {
+                        monthlyPrices.forEach(price => price.style.display = 'block');
+                        annualPrices.forEach(price => price.style.display = 'none');
+                    }
+                });
+            }
+            
+            // Testimonial slider functionality
+            const testimonialSlider = document.querySelector('.testimonial-slider-track');
+            const testimonials = document.querySelectorAll('.testimonial');
+            const prevBtn = document.querySelector('.testimonial-prev');
+            const nextBtn = document.querySelector('.testimonial-next');
+            const dots = document.querySelectorAll('.dot');
+            
+            let currentIndex = 0;
+            const slideWidth = 100; // 100%
+            
+            function updateSlider() {
+                if (testimonialSlider) {
+                    testimonialSlider.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                    
+                    // Update active testimonial
+                    testimonials.forEach((testimonial, index) => {
+                        if (index === currentIndex) {
+                            testimonial.classList.add('active');
+                        } else {
+                            testimonial.classList.remove('active');
+                        }
+                    });
+                    
+                    // Update active dot
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    currentIndex = currentIndex > 0 ? currentIndex - 1 : testimonials.length - 1;
+                    updateSlider();
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
+                    updateSlider();
+                });
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    currentIndex = index;
+                    updateSlider();
+                });
+            });
+            
+            // Auto-slide for testimonials
+            let testimonialInterval = setInterval(function() {
+                if (testimonialSlider) {
+                    currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
+                    updateSlider();
+                }
+            }, 8000);
+            
+            // Pause auto-slide when hovering over testimonials
+            if (testimonialSlider) {
+                testimonialSlider.addEventListener('mouseenter', function() {
+                    clearInterval(testimonialInterval);
+                });
+                
+                testimonialSlider.addEventListener('mouseleave', function() {
+                    testimonialInterval = setInterval(function() {
+                        currentIndex = currentIndex < testimonials.length - 1 ? currentIndex + 1 : 0;
+                        updateSlider();
+                    }, 8000);
+                });
+            }
+            
+            // Scroll to top button
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('active');
+                } else {
+                    scrollToTopBtn.classList.remove('active');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70, // Adjust for navbar height
+                                behavior: 'smooth'
+                            });
+                            
+                            // Close mobile menu if open
+                            const navbarToggler = document.querySelector('.navbar-toggler');
+                            const navbarCollapse = document.querySelector('.navbar-collapse');
+                            if (navbarCollapse.classList.contains('show')) {
+                                navbarToggler.click();
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('お問い合わせありがとうございます。担当者が確認次第、ご連絡させていただきます。');
+                    contactForm.reset();
+                });
+            }
+            
+            // Add counter animation
+            const counterElements = document.querySelectorAll('.counter');
+            
+            function animateCounter(counter) {
+                const target = parseInt(counter.getAttribute('data-target'));
+                let count = 0;
+                const step = target / 100;
                 
                 const updateCounter = () => {
-                    const c = +counter.innerText;
-                    if (c < target) {
-                        counter.innerText = Math.ceil(c + increment);
-                        setTimeout(updateCounter, 16);
+                    if (count < target) {
+                        count += step;
+                        counter.innerText = Math.round(count);
+                        setTimeout(updateCounter, 10);
                     } else {
                         counter.innerText = target;
                     }
                 };
                 
-                counter.innerText = '0';
-                const observer = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting) {
-                        updateCounter();
-                        observer.unobserve(counter);
+                updateCounter();
+            }
+            
+            // Trigger counter animation when in viewport
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
                     }
                 });
-                
-                observer.observe(counter);
+            }, observerOptions);
+            
+            counterElements.forEach(counter => {
+                counterObserver.observe(counter);
             });
         });
     </script>
