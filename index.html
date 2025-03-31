@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社HAKU パソコンレンタルサービス</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 8px 0;
+        }
+        
+        .logo {
+            height: 50px;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-badge {
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 30px;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fade-in-up 0.6s forwards;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fade-in-up 0.6s 0.2s forwards;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fade-in-up 0.6s 0.4s forwards;
+        }
+        
+        .hero-buttons {
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fade-in-up 0.6s 0.6s forwards;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-weight: 700;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .pricing-table {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .pricing-table:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .pricing-header h3 {
+            margin-bottom: 0;
+        }
+        
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .pricing-features {
+            list-style-type: none;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-button {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pricing-button:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+        
+        .security-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .testimonial {
+            background-color: white;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial:after {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 5rem;
+            color: rgba(0, 0, 0, 0.05);
+            font-family: serif;
+        }
+        
+        .customer-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .customer-position {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .footer {
+            background-color: #1a252f;
+            color: white;
+            padding: 50px 0;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--secondary-color);
+        }
+        
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline-light {
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .badge-primary {
+            background-color: var(--secondary-color);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .counter-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .counter-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span style="font-weight: 700; color: var(--primary-color);">株式会社HAKU</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">サービスの特徴</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">料金プラン</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#security">セキュリティ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">お客様の声</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-lg-3" href="#contact">お問い合わせ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="hero-badge">創業17年の実績</div>
+                    <h1>パソコンのプロによる<br>業界最安値のレンタルサービス</h1>
+                    <p>株式会社HAKUは、創業17年・8,000社以上の実績を持つパソコン回収・処分のプロフェッショナル。その経験とノウハウを活かした安心・安全なパソコンレンタルサービスをご提供します。</p>
+                    <div class="hero-buttons">
+                        <a href="#pricing" class="btn btn-primary me-3">料金プランを見る</a>
+                        <a href="#contact" class="btn btn-outline-light">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- サービスの特徴 -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>サービスの特徴</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box" data-aos="fade-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>パソコンのプロが手がける</h3>
+                        <p>創業17年の実績と8,000社以上の企業のパソコン回収・処分経験を持つプロフェッショナルが、豊富な知識とノウハウを活かしたレンタルサービスを提供します。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>業界最安値の価格</h3>
+                        <p>既存のパソコン回収・処分事業により仕入れコストが不要なため、他社よりも安価な価格設定を実現しています。コストパフォーマンスに優れたサービスをご利用いただけます。</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>安心・安全のセキュリティ</h3>
+                        <p>データ削除の専門企業としての実績があり、使用後のパソコンも安心して返却可能です。有料オプションでデータ削除証明書も発行できます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 実績データ -->
+            <div class="row mt-5">
+                <div class="col-md-6 mb-4">
+                    <div class="counter-container" data-aos="fade-up">
+                        <div class="counter" data-target="17">0</div>
+                        <p class="counter-text">創業年数</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="counter-container" data-aos="fade-up" data-aos-delay="100">
+                        <div class="counter" data-target="8000">0</div>
+                        <p class="counter-text">取引企業数</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 料金プラン -->
+    <section id="pricing" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>料金プラン</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-table" data-aos="fade-up">
+                        <div class="pricing-header">
+                            <h3>個人向けプラン</h3>
+                            <div class="pricing-price">¥3,980<small>/月〜</small></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>短期レンタル対応</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>初期設定無料</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>24時間サポート</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>基本ソフトウェア導入済み</li>
+                        </ul>
+                        <a href="individual.html" class="pricing-button">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pricing-header" style="background-color: var(--secondary-color);">
+                            <h3>法人向けプラン</h3>
+                            <div class="pricing-price">¥2,980<small>/月〜</small></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>長期レンタル割引</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>量産割引対応</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>ビジネスソフト導入</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>専任担当者によるサポート</li>
+                        </ul>
+                        <a href="business.html" class="pricing-button">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="pricing-table" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pricing-header">
+                            <h3>カスタムプラン</h3>
+                            <div class="pricing-price">お問い合わせ</div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>特殊用途対応</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>オーダーメイド構成</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>特別サポート</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>最短納期対応</li>
+                        </ul>
+                        <a href="custom.html" class="pricing-button">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- セキュリティ -->
+    <section id="security" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>安心のデータ管理</h2>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <div class="text-center">
+                        <div class="security-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h3>データ削除の専門企業だからできる安心サービス</h3>
+                    <p>株式会社HAKUはデータ削除・ハードディスク破壊の専門企業です。パソコンレンタル後も安心してご返却いただけます。</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>国際基準に準拠したデータ消去</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>返却後の徹底した情報管理</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i>有料オプションでデータ削除証明書発行</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">詳細はお問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お客様の声 -->
+    <section id="testimonials" class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>お客様の声</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial" data-aos="fade-up">
+                        <p>"短期イベント用に10台のパソコンをレンタルしましたが、価格も他社より安く、対応も迅速で大変満足しています。次回もぜひ利用したいと思います。"</p>
+                        <div class="customer-name">田中 健太</div>
+                        <div class="customer-position">イベント企画会社 部長</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
+                        <p>"社員50名分のノートPCを長期レンタルしています。法人向けの割引プランが適用され、コスト削減に大きく貢献しました。サポートも手厚く安心です。"</p>
+                        <div class="customer-name">佐藤 美咲</div>
+                        <div class="customer-position">IT企業 総務部</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
+                        <p>"急なプロジェクト開始で高スペックPCが必要になり、カスタムプランで対応いただきました。業務に支障なく進めることができ、大変助かりました。"</p>
+                        <div class="customer-name">鈴木 雄太</div>
+                        <div class="customer-position">デザイン会社 代表</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2 class="mb-4" data-aos="fade-up">お問い合わせ・お申し込み</h2>
+            <p class="mb-4" data-aos="fade-up" data-aos-delay="100">お見積り・ご相談は無料です。お気軽にお問い合わせください。</p>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <a href="tel:0120-XXX-XXX" class="btn btn-light btn-lg me-3 mb-3">
+                    <i class="fas fa-phone me-2"></i>0120-XXX-XXX
+                </a>
+                <a href="mailto:info@haku-rental.jp" class="btn btn-outline-light btn-lg mb-3">
+                    <i class="fas fa-envelope me-2"></i>メールでのお問い合わせ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4>株式会社HAKU</h4>
+                    <p>パソコンのプロフェッショナルによる安心・安全のレンタルサービス</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>サービス</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="individual.html" class="text-white">個人向けプラン</a></li>
+                        <li><a href="business.html" class="text-white">法人向けプラン</a></li>
+                        <li><a href="custom.html" class="text-white">カスタムプラン</a></li>
+                        <li><a href="#" class="text-white">データ削除サービス</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>お問い合わせ</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>〒XXX-XXXX 東京都XX区XXX</li>
+                        <li><i class="fas fa-phone me-2"></i>0120-XXX-XXX</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@haku-rental.jp</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="background-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 株式会社HAKU. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Counter animation
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // in milliseconds
+                const increment = target / (duration / 16); // 60fps
+                
+                const updateCounter = () => {
+                    const c = +counter.innerText;
+                    if (c < target) {
+                        counter.innerText = Math.ceil(c + increment);
+                        setTimeout(updateCounter, 16);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                counter.innerText = '0';
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(counter);
+                    }
+                });
+                
+                observer.observe(counter);
+            });
+        });
+    </script>
+</body>
+</html>
